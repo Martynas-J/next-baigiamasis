@@ -1,0 +1,29 @@
+@use "../Elements/responsive.scss";
+.menuBar {
+    display: none;
+    @include responsive.mob575 {
+        font-size: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: auto;
+        .linkWrapper{
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            a{
+                color: rgb(255, 255, 255);
+                background-color: rgba(0, 0, 0, 0.726);
+                text-decoration: none;
+                box-shadow: inset 0px 0px 20px 5px rgb(22, 22, 22), 0px 0px 2px 2px rgb(22, 22, 22);
+                border-radius: 15px;
+                padding: 0 10px;
+                transition: box-shadow 0.5s, color 0.3s;
+                &:hover{
+                    box-shadow: inset 0px 0px 20px 5px rgb(73, 73, 73), 0px 0px 2px 2px rgb(201, 200, 200);
+                    color: goldenrod;
+                }
+            }
+        }
+    }
+}

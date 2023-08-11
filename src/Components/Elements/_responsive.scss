@@ -1,0 +1,25 @@
+@mixin mob1240 {
+    @media screen and (max-width: 1240px) {
+        @content;
+    }
+}
+@mixin mob940 {
+    @media screen and (max-width: 940px) {
+        @content;
+    }
+}
+@mixin mob800 {
+    @media screen and (max-width: 800px) {
+        @content;
+    }
+}
+@mixin mob640 {
+    @media screen and (max-width: 640px) {
+        @content;
+    }
+}
+@mixin mob575 {
+    @media screen and (max-width: 575px) {
+        @content;
+    }
+}

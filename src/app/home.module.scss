@@ -1,0 +1,25 @@
+.homeWrapper {
+    .homeContent {
+        color: rgb(0, 0, 0);
+        font-size: 18px;
+        font-weight: 500;
+        display: flex;
+        flex-direction: column;
+        > *:nth-child(even) {
+            margin-left: auto;
+        }
+        p {
+            max-width: 500px;
+            background-color: rgba(255, 255, 255, 0.637);
+            padding: 20px;
+            border-radius: 15px;
+        }
+        .list {
+            background-color: rgba(255, 255, 255, 0.637);
+            padding: 20px;
+            border-radius: 15px;
+            width: 200px;
+            padding-left: 40px;
+        }
+    }
+}
