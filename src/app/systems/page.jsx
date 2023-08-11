@@ -36,7 +36,7 @@ const SystemsPage = () => {
     <Container>
       <div className={styles.systemsWrapper}>
         <h1 className="page-title">Systems</h1>
-        <Link href="/form/system" className="create-link">Add New System</Link>
+        <Link href="/form/system/new" className="create-link">Add New System</Link>
         <div className={styles.systemWrapper}>
           {
             systems.length > 0 ?

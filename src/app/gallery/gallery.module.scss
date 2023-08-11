@@ -1,0 +1,35 @@
+.galleryWrapper {
+    .photosWrapper {
+      padding-bottom: 50px;
+      .photosTitle {
+        text-align: center;
+      }
+      .photos {
+        border-top: 15px solid rgba(0, 0, 0, 0.521);
+        padding-top: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+
+        &:hover {
+          opacity: 0.8;
+        }
+        img {
+          box-shadow: -1px 0px 11px 9px rgba(0, 0, 0, 0.664);
+        }
+        .emptyText {
+          font-weight: 600;
+          font-size: 18px;
+          color: rgb(34, 34, 49);
+          a {
+            color: rgb(34, 34, 49);
+            text-decoration: none;
+            &:hover {
+              color: rgb(119, 115, 134);
+            }
+          }
+        }
+      }
+    }
+  }

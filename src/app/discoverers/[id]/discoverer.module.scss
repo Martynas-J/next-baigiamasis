@@ -1,0 +1,13 @@
+@use "@/Components/Elements/responsive.scss";
+.discoverer {
+    padding: 20px;
+    .discovererLink {
+        @include responsive.mob640 {
+            display: block;
+            text-align: center;
+        }
+    }
+    .item {
+        display: block;
+    }
+}

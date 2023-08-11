@@ -1,0 +1,14 @@
+.planet {
+    padding: 20px;
+    .planet-content {
+        max-width: 600px;
+        a{
+            color: rgb(73, 73, 73);
+            text-decoration: none;
+            font-weight: 700;
+            &:hover{
+                color: blue;
+            }
+        }
+    }
+}

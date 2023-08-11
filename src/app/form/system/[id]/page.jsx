@@ -13,7 +13,7 @@ const SystemFormPage = ({ params }) => {
     const [system, setSystem] = useState('');
 
     useEffect(() => {
-        if (id) {
+        if (id && id !== "new") {
             axios.get(`${API_URL}/systems/${id}?_embed=photos`)
                 .then(res => {
                     const { name, galaxy, galaxyGroup, stars, planets } = res.data

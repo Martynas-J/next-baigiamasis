@@ -1,4 +1,5 @@
 
+import Image from "next/image";
 import Card from "../Card/Card";
 import { PLANET_IMG_URL } from "../Config/Config";
 
@@ -8,8 +9,8 @@ const PlanetItem = ({ planet, onDelete }) => {
 
     return (
         <div className="card-wrapper">
-            <Card url={`./${id}`}>
-                <img className="medium-img" src={photos[0] ? photos[0].thumbnailUrl : PLANET_IMG_URL}></img>
+            <Card url={`planets/${id}`}>
+                <Image alt="planet" width={200} height={200} className="medium-img" src={photos[0] ? photos[0].thumbnailUrl : PLANET_IMG_URL} />
                 <h2 > {name}</h2>
                 <span>Natural satellites ({satellites.length > 0 ? satellites.split(",").length : 0 })</span>
             </Card>
