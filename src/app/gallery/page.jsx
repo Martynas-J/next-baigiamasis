@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import Container from "@/Components/Container/Container";
 import styles from "./gallery.module.scss"
 import Link from "next/link";
+import Image from "next/image";
 
 const GalleryPage = () => {
   const [photos, setPhotos] = useState('');
@@ -28,27 +29,27 @@ const GalleryPage = () => {
   const starsPhotosElement = stars.length > 0 ?
     stars.map(star =>
       <Link key={star.id} href="gallery/stars">
-        <img className="medium-img" src={star.thumbnailUrl} />
+        <Image alt="star" width={200} height={200} className="medium-img" src={star.thumbnailUrl} />
       </Link>)
     : <span className="empty-text">Is empty, <Link href="gallery/stars">click here to add</Link></span>
   const discoverersPhotosElement = discoverers.length > 0 ?
     discoverers.map(discoverer =>
       <Link key={discoverer.id} href="gallery/discoverers" >
-        <img className="medium-img" src={discoverer.thumbnailUrl} />
+        <Image alt="discoverer" width={200} height={200} className="medium-img" src={discoverer.thumbnailUrl} />
       </Link>)
     : <span className="empty-text">Is empty, <Link href="gallery/discoverers">click here to add</Link></span>
   const planetsPhotosElement = planets.length > 0 ?
 
     planets.map(planet =>
       <Link key={planet.id} href="gallery/planets">
-        <img className="medium-img" key={planet.id} src={planet.thumbnailUrl} />
+        <Image alt="planet" width={200} height={200} className="medium-img" key={planet.id} src={planet.thumbnailUrl} />
       </Link>)
     : <span className="empty-text">Is empty, <Link href="gallery/planets">click here to add</Link></span>
 
   const systemsPhotosElement = systems.length > 0 ?
     systems.map(system =>
       <Link key={system.id} href="gallery/systems">
-        <img className="medium-img" key={system.id} src={system.thumbnailUrl} />
+        <Image alt="system" width={200} height={200} className="medium-img" key={system.id} src={system.thumbnailUrl} />
       </Link>)
     : <span className={styles.emptyText}>Is empty, <Link href="gallery/systems">click here to add</Link></span>
 
