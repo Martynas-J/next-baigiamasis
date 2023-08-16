@@ -19,11 +19,12 @@
     border: 2px solid black;
     color:black;
     border-radius: 5px;
+    outline: none;
     font-size: 20px;
     font-weight: bold;
   }
   .input:focus{
-    border-color: pink;
+    border-color: #2968df;
     box-shadow: 2px 2px 2px #2968df;
   }
   
