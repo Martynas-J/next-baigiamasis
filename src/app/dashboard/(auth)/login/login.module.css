@@ -34,6 +34,7 @@
 }
 .input:focus{
   border-color: #2968df;
+  box-shadow: 2px 2px 2px #2968df;
 }
 
 .button {
