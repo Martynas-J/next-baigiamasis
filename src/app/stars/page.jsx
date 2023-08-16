@@ -20,7 +20,7 @@ const StarsPage = () => {
     return ""
   }
   const deleteHandler = (id) => {
-    axios.delete(`${apiUrl}/stars/${id}`)
+    axios.delete(`${apiUrl}/api/stars/${id}`)
       .then(() => {
         toast.info("Star was deleted!")
         setStars(prevState => {
