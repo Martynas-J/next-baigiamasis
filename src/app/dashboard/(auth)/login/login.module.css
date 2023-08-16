@@ -32,6 +32,9 @@
   font-size: 20px;
   font-weight: bold;
 }
+.input:focus{
+  border-color: #7d7c7c;
+}
 
 .button {
   width: 300px;
