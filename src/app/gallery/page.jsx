@@ -7,8 +7,20 @@ import Container from "@/Components/Container/Container";
 import styles from "./gallery.module.scss"
 import Link from "next/link";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const GalleryPage = () => {
+
+  const session = useSession()
+
+  const router = useRouter()
+  useEffect(() => {
+      if (session.status === "unauthenticated") {
+          router?.push("/dashboard/login");
+      }
+  }, [session.status, router]);
+
   const [photos, setPhotos] = useState('');
 
   useEffect(() => {

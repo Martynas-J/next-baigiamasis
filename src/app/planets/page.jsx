@@ -7,8 +7,20 @@ import PlanetItem from "@/Components/PlanetItem/PlanetItem";
 import Container from "@/Components/Container/Container";
 import Link from "next/link";
 import styles from "./planets.module.scss"
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const PlanetsPage = () => {
+
+  const session = useSession()
+
+  const router = useRouter()
+  useEffect(() => {
+      if (session.status === "unauthenticated") {
+          router?.push("/dashboard/login");
+      }
+  }, [session.status, router]);
+
   const apiUrl = process.env.API_URL1
   const [planets, setPlanets] = useState('');
 

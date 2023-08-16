@@ -1,7 +1,21 @@
+"use client"
 import Container from "@/Components/Container/Container"
 import styles from  "./home.module.scss"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 
 const HomePage = () => {
+
+  const session = useSession()
+
+  const router = useRouter()
+  useEffect(() => {
+      if (session.status === "unauthenticated") {
+          router?.push("/dashboard/login");
+      }
+  }, [session.status, router]);
+
   return (
     <Container>
       <div className={styles.homeWrapper}>

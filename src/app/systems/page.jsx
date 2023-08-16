@@ -6,8 +6,20 @@ import SystemItem from "@/Components/SystemItem/SystemItem";
 import Container from "@/Components/Container/Container";
 import styles from "./system.module.scss"
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const SystemsPage = () => {
+
+  const session = useSession()
+
+  const router = useRouter()
+  useEffect(() => {
+    if (session.status === "unauthenticated") {
+      router?.push("/dashboard/login");
+    }
+  }, [session.status, router]);
+
   const [systems, setSystems] = useState('');
   const apiUrl = process.env.API_URL1
   useEffect(() => {

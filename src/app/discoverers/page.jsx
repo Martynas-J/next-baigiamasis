@@ -6,8 +6,20 @@ import DiscovererItem from "@/Components/DiscovererItem/DiscovererItem"
 import Container from "@/Components/Container/Container";
 import styles from "./discoverers.module.scss"
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const DiscoverersPage = () => {
+
+  const session = useSession()
+
+  const router = useRouter()
+  useEffect(() => {
+      if (session.status === "unauthenticated") {
+          router?.push("/dashboard/login");
+      }
+  }, [session.status, router]);
+
   const apiUrl = process.env.API_URL1
   const [discoverers, setDiscoverers] = useState('');
 

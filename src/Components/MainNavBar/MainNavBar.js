@@ -3,17 +3,22 @@ import styles from "./MainNavBar.module.scss"
 import { useState } from 'react';
 import Link from "next/link";
 import MenuItem from "../MenuItem/MenuItem";
+import { signOut, useSession } from "next-auth/react";
+import DataProvider from "../DataProvider/DataProvider";
 
 const MainNavBar = ({ isHomePage }) => {
+    const session = useSession()
     const [menuOn, setMenuOn] = useState(false)
     const addFormHandler = () => {
         setMenuOn(prevState => !prevState)
     }
+
     return (
+
         <nav className={isHomePage ? `${styles.mainNavigation} home-page` : `${styles.mainNavigation}`}>
             <ul className={styles.navList}>
                 <li className={styles.navigationItem}>
-                    <Link className={styles.navigationLink} href='/'>Home</Link>
+                    <DataProvider> <Link className={styles.navigationLink} href='/'>Home</Link></DataProvider>
                 </li>
                 <li className={styles.navigationItem}>
                     <Link className={styles.navigationLink} href='/systems'>Systems</Link>
@@ -29,6 +34,14 @@ const MainNavBar = ({ isHomePage }) => {
                 </li>
                 <li className={styles.navigationItem}>
                     <Link className={styles.navigationLink} href='/gallery'>Gallery</Link>
+                </li>
+                <li className={styles.navigationItem}>
+                    <Link className={styles.navigationLink} href='/dashboard'>Dashboard</Link>
+                </li>
+                <li className={styles.navigationItem}>
+                    {session.status === "authenticated" && (
+                        <button onClick={signOut} className={styles.navigationButton}>Log out</button>
+                    )}
                 </li>
                 {menuOn ? <li><MenuItem /></li> : ""}
                 <li>

@@ -7,8 +7,20 @@ import StarItem from "@/Components/StarItem/StarItem";
 import Container from "@/Components/Container/Container";
 import Link from "next/link";
 import styles from "./stars.module.scss"
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const StarsPage = () => {
+
+  const session = useSession()
+
+  const router = useRouter()
+  useEffect(() => {
+      if (session.status === "unauthenticated") {
+          router?.push("/dashboard/login");
+      }
+  }, [session.status, router]);
+
   const [stars, setStars] = useState('');
   const apiUrl = process.env.API_URL1
   useEffect(() => {
