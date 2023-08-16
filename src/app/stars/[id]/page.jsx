@@ -1,7 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { API_URL } from "@/Components/Config/Config";
 import { toast } from "react-toastify";
 import Container from "@/Components/Container/Container";
 import styles from "./star.module.scss"

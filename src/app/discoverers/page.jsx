@@ -1,7 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { API_URL } from "@/Components/Config/Config";
 import { toast } from "react-toastify";
 import DiscovererItem from "@/Components/DiscovererItem/DiscovererItem"
 import Container from "@/Components/Container/Container";
@@ -9,10 +8,11 @@ import styles from "./discoverers.module.scss"
 import Link from "next/link";
 
 const DiscoverersPage = () => {
+  const apiUrl = process.env.API_URL1
   const [discoverers, setDiscoverers] = useState('');
 
   useEffect(() => {
-    axios.get(`${API_URL}/discoverers?_embed=photos`)
+    axios.get(`${apiUrl}/discoverers`)
       .then(res => setDiscoverers(res.data))
       .catch(res => toast.error(res.message))
   }, [])
@@ -21,12 +21,12 @@ const DiscoverersPage = () => {
     return ""
   }
   const deleteHandler = (id) => {
-    axios.delete(`${API_URL}/discoverers/${id}?_embed=photos`)
+    axios.delete(`${apiUrl}/discoverers/${id}`)
       .then(() => {
         toast.info("Discoverer was deleted!")
         setDiscoverers(prevState => {
           let newState = [...prevState]
-          return newState.filter(((discoverer) => discoverer.id !== id))
+          return newState.filter(((discoverer) => discoverer._id !== id))
         })
       })
       .catch(err => {
@@ -42,7 +42,7 @@ const DiscoverersPage = () => {
           {
             discoverers.length > 0 ?
               discoverers.map(discoverer =>
-                <DiscovererItem key={discoverer.id} discoverer={discoverer} onDelete={deleteHandler} />) :
+                <DiscovererItem key={discoverer._id} discoverer={discoverer} onDelete={deleteHandler} />) :
               <h2>No data</h2>
           }
         </div>

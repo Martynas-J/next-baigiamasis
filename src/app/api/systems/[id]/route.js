@@ -46,6 +46,6 @@ export const PATCH = async (request, { params }) => {
         }
         return new NextResponse(JSON.stringify(updatedSystem), { status: 200 });
     } catch (err) {
-        return new NextResponse("Klaida atnaujinant įrašą :(", { status: 500 });
+        return new NextResponse("Database Error :(", { status: 500 });
     }
 }

@@ -1,7 +1,7 @@
 "use client"
 import Container from "@/Components/Container/Container"
 import UniversalForm from "@/Components/Form/UniversalForm"
-import { API_URL, HUMAN_IMG_URL } from "@/Components/Config/Config";
+import { HUMAN_IMG_URL } from "@/Components/Config/Config";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -9,25 +9,26 @@ import { useRouter } from "next/navigation";
 
 
 const DiscovererFormPage = ({params}) => {
+    const apiUrl = process.env.API_URL1
     const  id  = params.id
-    const navigate = useRouter
+    const navigate = useRouter()
     const [discoverer, setDiscoverer] = useState('');
 
     useEffect(() => {
         if (id && id !== "new") {
-            axios.get(`${API_URL}/discoverers/${id}?_embed=photos`)
+            axios.get(`${apiUrl}/discoverers/${id}`)
                 .then(res => {
-                    const { name, country, birthplace, occupation, contribution, photos, id } = res.data
+                    const { name, country, birthplace, occupation, contribution, _id } = res.data
                     const newData = {
                         name,
                         country,
                         birthplace,
                         occupation,
                         contribution,
-                        url: photos.length > 0 ? photos[0].url : HUMAN_IMG_URL,
-                        thumbnailUrl: photos.length > 0 ? photos[0].thumbnailUrl : HUMAN_IMG_URL,
-                        id,
-                        photoId: photos.length > 0 ? photos[0].id : '',
+                        url: HUMAN_IMG_URL,
+                        thumbnailUrl: HUMAN_IMG_URL,
+                        id: _id
+                        // photoId: photos.length > 0 ? photos[0].id : '',
                     }
                     return setDiscoverer(newData)
                 })
@@ -46,38 +47,38 @@ const DiscovererFormPage = ({params}) => {
     ];
 
     const addDiscovererHandler = (data) => {
-        let { name, country, birthplace, occupation, contribution, url, thumbnailUrl, photoId } = data
+        let { name, country, birthplace, occupation, contribution, url, thumbnailUrl } = data
         url = url ? url : HUMAN_IMG_URL
         thumbnailUrl = thumbnailUrl ? thumbnailUrl : HUMAN_IMG_URL
         const newDiscoverer = { name, country, birthplace, occupation, contribution }
         if (discoverer) {
             axios
-                .patch(`${API_URL}/discoverers/${discoverer.id}`, newDiscoverer)
-                .then((response) => {
-                    const discovererId = response.data.id;
-                    const photoData = { name, url, thumbnailUrl, discovererId, category: "discoverers" };
-                    if (photoId) {
-                        return axios.patch(`${API_URL}/photos/${photoId}`, photoData)
-                    } else {
-                        return axios.post(`${API_URL}/photos`, photoData);
-                    }
-                })
+                .patch(`${apiUrl}/discoverers/${discoverer.id}`, newDiscoverer)
+                // .then((response) => {
+                //     const discovererId = response.data.id;
+                //     const photoData = { name, url, thumbnailUrl, discovererId, category: "discoverers" };
+                //     if (photoId) {
+                //         return axios.patch(`${API_URL}/photos/${photoId}`, photoData)
+                //     } else {
+                //         return axios.post(`${API_URL}/photos`, photoData);
+                //     }
+                // })
                 .then(() => {
                     toast.success("Discoverer was Edited");
                     setDiscoverer("");
-                    navigate("/discoverers")
+                    navigate?.push("/discoverers")
                 })
                 .catch((res) => toast.error(res.messages));
         } else {
-            axios.post(`${API_URL}/discoverers`, newDiscoverer)
-                .then((response) => {
-                    const discovererId = response.data.id;
-                    const photoData = { name, url, thumbnailUrl, discovererId, category: "discoverers" };
-                    return axios.post(`${API_URL}/photos`, photoData);
-                })
+            axios.post(`${apiUrl}/discoverers`, newDiscoverer)
+                // .then((response) => {
+                //     const discovererId = response.data.id;
+                //     const photoData = { name, url, thumbnailUrl, discovererId, category: "discoverers" };
+                //     return axios.post(`${API_URL}/photos`, photoData);
+                // })
                 .then(() => {
                     toast.success('Discoverer was added');
-                    navigate("/discoverers")
+                    navigate?.push("/discoverers")
                 })
                 .catch((error) => {
                     toast.error(error.message);

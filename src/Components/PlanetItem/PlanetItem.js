@@ -5,16 +5,16 @@ import { PLANET_IMG_URL } from "../Config/Config";
 
 const PlanetItem = ({ planet, onDelete }) => {
 
-    const { name, id, photos, satellites } = planet
+    const { name, _id, photos, satellites } = planet
 
     return (
         <div className="card-wrapper">
-            <Card url={`planets/${id}`}>
-                <Image alt="planet" width={200} height={200} className="medium-img" src={photos[0] ? photos[0].thumbnailUrl : PLANET_IMG_URL} />
+            <Card url={`planets/${_id}`}>
+                <Image alt="planet" width={200} height={200} className="medium-img" src={ PLANET_IMG_URL} />
                 <h2 > {name}</h2>
                 <span>Natural satellites ({satellites.length > 0 ? satellites.split(",").length : 0 })</span>
             </Card>
-            <button className="deleteButton" onClick={() => onDelete(planet.id)}> X</button>
+            <button className="deleteButton" onClick={() => onDelete(planet._id)}> X</button>
         </div >
     )
 }

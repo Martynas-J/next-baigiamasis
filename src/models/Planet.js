@@ -11,6 +11,9 @@ const planetSchema = new Schema({
         type: String,
         required: true,
     },
+    satellites: {
+        type: String,
+    },
     galaxyGroup: {
         type: String,
         required: true,

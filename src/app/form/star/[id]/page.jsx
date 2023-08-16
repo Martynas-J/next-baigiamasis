@@ -66,7 +66,7 @@ const StarFormPage = ({params}) => {
                 .then(() => {
                     toast.success("Star was Edited");
                     setStar("");
-                    navigate("/stars")
+                    navigate?.push("/stars")
                 })
                 .catch((res) => toast.error(res.messages));
         } else {

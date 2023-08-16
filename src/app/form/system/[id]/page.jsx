@@ -1,7 +1,6 @@
 "use client"
 import UniversalForm from "@/Components/Form/UniversalForm"
 import { useRouter } from "next/navigation";
-import { API_URL } from "@/Components/Config/Config";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useEffect, useState } from "react";

@@ -10,11 +10,12 @@ import Link from "next/link";
 
 
 const DiscovererPage = ({params}) => {
+    const apiUrl = process.env.API_URL1
     const [discoverer, setDiscoverer] = useState('');
     const id  = params.id
 
     useEffect(() => {
-        axios.get(`${API_URL}/discoverers/${id}?_embed=photos`)
+        axios.get(`${apiUrl}/discoverers/${id}`)
             .then(res => setDiscoverer(res.data))
             .catch(res => toast.error(res.message))
     }, [id])
@@ -27,7 +28,7 @@ const DiscovererPage = ({params}) => {
     return (
         <Container>
             <div className={styles.discoverer}>
-                {photos[0] ? <Link href="/gallery/discoverers"><img className="medium-img" src={photos[0].url}></img> </Link> : ""}
+                {/* {photos[0] ? <Link href="/gallery/discoverers"><img className="medium-img" src={photos[0].url}></img> </Link> : ""} */}
                 <Link href={`/form/discoverer/${id}`} className="create-link discoverer-link">Edit Discoverer</Link>
                 <h2 className={styles.discovererTitle} > {name}</h2>
                 <span className={styles.item} ><span className="bold">Occupation: </span>{occupation}</span>

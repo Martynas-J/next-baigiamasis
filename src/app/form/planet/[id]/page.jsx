@@ -8,26 +8,27 @@ import Container from "@/Components/Container/Container";
 import { useRouter } from "next/navigation";
 
 const PlanetFormPage = ({params}) => {
+  const apiUrl = process.env.API_URL1
   const id  = params.id
-  const navigate = useRouter
+  const navigate = useRouter()
 
   const [planet, setPlanet] = useState('');
   const [systems, setSystems] = useState('');
   const [discoverers, setDiscoverers] = useState('');
 
   useEffect(() => {
-    axios.get(`${API_URL}/systems`)
+    axios.get(`${apiUrl}/systems`)
       .then(res => setSystems(res.data))
       .catch(res => toast.error(res.message))
 
-    axios.get(`${API_URL}/discoverers`)
+    axios.get(`${apiUrl}/discoverers`)
       .then(res => setDiscoverers(res.data))
       .catch(res => toast.error(res.message))
 
     if (id && id !== "new") {
-      axios.get(`${API_URL}/planets/${id}?_embed=photos`)
+      axios.get(`${apiUrl}/planets/${id}`)
         .then(res => {
-          let { name, discovererId, galaxy, galaxyGroup, satellites, photos, id, systemId } = res.data
+          let { name, discovererId, galaxy, galaxyGroup, satellites, id, systemId } = res.data
           const newData = {
             name,
             discovererId,
@@ -35,10 +36,10 @@ const PlanetFormPage = ({params}) => {
             galaxyGroup,
             satellites,
             systemId,
-            url: photos.length > 0 ? photos[0].url : PLANET_IMG_URL,
-            thumbnailUrl: photos.length > 0 ? photos[0].thumbnailUrl : PLANET_IMG_URL,
+            url: PLANET_IMG_URL,
+            thumbnailUrl: PLANET_IMG_URL,
             id,
-            photoId: photos.length > 0 ? photos[0].id : '',
+            // photoId: photos.length > 0 ? photos[0].id : '',
           }
           return setPlanet(newData)
         })
@@ -50,8 +51,8 @@ const PlanetFormPage = ({params}) => {
     return ""
   }
 
-  const allSystems = systems.map(item => ({ id: item.id, name: item.name }))
-  const allDiscoverers = discoverers.map(item => ({ id: item.id, name: item.name }))
+  const allSystems = systems.map(item => ({ id: item._id, name: item.name }))
+  const allDiscoverers = discoverers.map(item => ({ id: item._id, name: item.name }))
 
   const inputs = [
     { type: 'text', name: 'name', label: 'Name', value: '', required: true },
@@ -66,38 +67,39 @@ const PlanetFormPage = ({params}) => {
   const addPlanetHandler = (data) => {
 
     let { name, discovererId, galaxy, galaxyGroup, satellites, url, thumbnailUrl, photoId, systemId } = data
-    discovererId = Number(discovererId)
-    systemId = Number(systemId)
+    discovererId = discovererId
+    systemId = systemId
     satellites = satellites ? satellites : ""
     const newPlanet = { name, discovererId, galaxy, galaxyGroup, satellites, systemId }
 
     if (planet) {
       axios
-        .patch(`${API_URL}/planets/${id}`, newPlanet)
-        .then((response) => {
-          const planetId = response.data.id;
-          const photoData = { name, url, thumbnailUrl, planetId, category: "planets" };
-          if (photoId) {
-            return axios.patch(`${API_URL}/photos/${photoId}`, photoData)
-          } else {
-            return axios.post(`${API_URL}/photos`, photoData);
-          }
-        })
+        .patch(`${apiUrl}/planets/${id}`, newPlanet)
+        // .then((response) => {
+        //   const planetId = response.data.id;
+        //   const photoData = { name, url, thumbnailUrl, planetId, category: "planets" };
+        //   if (photoId) {
+        //     return axios.patch(`${apiUrl}/photos/${photoId}`, photoData)
+        //   } else {
+        //     return axios.post(`${apiUrl}/photos`, photoData);
+        //   }
+        // })
         .then(() => {
           toast.success("Planet was Edited");
           setPlanet("");
-          navigate("/planets")
+          navigate?.push("/planets")
         })
         .catch((res) => toast.error(res.messages));
     } else {
-      axios.post(`${API_URL}/planets`, newPlanet)
-        .then((response) => {
-          const planetId = response.data.id;
-          const photoData = { name, url, thumbnailUrl, planetId, category: "planets" };
-          return axios.post(`${API_URL}/photos`, photoData);
-        })
+      axios.post(`${apiUrl}/planets`, newPlanet)
+        // .then((response) => {
+        //   const planetId = response.data.id;
+        //   const photoData = { name, url, thumbnailUrl, planetId, category: "planets" };
+        //   return axios.post(`${apiUrl}/photos`, photoData);
+        // })
         .then(() => {
           toast.success('Planet was added');
+          navigate?.push("/planets")
         })
         .catch((error) => {
           toast.error(error.message);

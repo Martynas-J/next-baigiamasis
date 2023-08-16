@@ -6,14 +6,14 @@ import { toast } from "react-toastify";
 import PlanetItem from "@/Components/PlanetItem/PlanetItem";
 import Container from "@/Components/Container/Container";
 import Link from "next/link";
-import styles from "./palnets.module.scss"
+import styles from "./planets.module.scss"
 
 const PlanetsPage = () => {
-
+  const apiUrl = process.env.API_URL1
   const [planets, setPlanets] = useState('');
 
   useEffect(() => {
-    axios.get(`${API_URL}/planets?_expand=system&_embed=photos`)
+    axios.get(`${apiUrl}/planets?_expand=system`)
       .then(res => setPlanets(res.data))
       .catch(res => toast.error(res.message))
   }, [])
@@ -21,12 +21,12 @@ const PlanetsPage = () => {
     return ""
   }
   const deleteHandler = (id) => {
-    axios.delete(`${API_URL}/planets/${id}?_embed=photos`)
+    axios.delete(`${apiUrl}/planets/${id}`)
       .then(() => {
         toast.info("Planet was deleted!")
         setPlanets(prevState => {
           let newState = [...prevState]
-          return newState.filter(((planet) => planet.id !== id))
+          return newState.filter(((planet) => planet._id !== id))
         })
       })
       .catch(err => {
@@ -41,12 +41,12 @@ const PlanetsPage = () => {
         <div className={styles.planetWrapper}>
           {
             planets.length > 0 ?
-              planets.map(planet => <PlanetItem key={planet.id} onDelete={deleteHandler} planet={planet} />) :
+              planets.map(planet => <PlanetItem key={planet._id} onDelete={deleteHandler} planet={planet} />) :
               <h2>No data</h2>
           }
         </div>
       </div>
-    </Container>
+    </Container> 
 
   )
 }
