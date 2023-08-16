@@ -12,7 +12,7 @@ const StarsPage = () => {
   const [stars, setStars] = useState('');
   const apiUrl = process.env.API_URL1
   useEffect(() => {
-    axios.get(`${apiUrl}/stars?_expand=system`)
+    axios.get(`${apiUrl}/api/stars?_expand=system`)
       .then(res => setStars(res.data))
       .catch(res => toast.error(res.message))
   }, [])
