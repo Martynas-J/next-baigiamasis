@@ -2,9 +2,6 @@
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
-import useSWR from "swr"
-import styles from "./page.module.css";
-import Image from "next/image"
 
 const Dashboard = () => {
 

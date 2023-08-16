@@ -16,11 +16,14 @@
   .input{
     padding: 20px;
     background-color: transparent;
-    border: 2px solid #bbb;
-    color:#bbb;
+    border: 2px solid black;
+    color:black;
     border-radius: 5px;
     font-size: 20px;
     font-weight: bold;
+  }
+  .input:focus{
+    border-color: #7d7c7c;
   }
   
   .button {
