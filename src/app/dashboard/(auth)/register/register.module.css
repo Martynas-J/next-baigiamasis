@@ -23,7 +23,7 @@
     font-weight: bold;
   }
   .input:focus{
-    border-color: #2968df;
+    border-color: pink;
     box-shadow: 2px 2px 2px #2968df;
   }
   
