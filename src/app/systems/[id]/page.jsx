@@ -1,24 +1,22 @@
 "use client"
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { API_URL } from "@/Components/Config/Config";
 import { toast } from "react-toastify";
 import Container from "@/Components/Container/Container";
 import Link from "next/link";
 
-const SystemPage = ({params}) => {
+const SystemPage = ({ params }) => {
     const [system, setSystem] = useState('');
-    const  id  = params.id;
-
+    const id = params.id;
+    const apiUrl = process.env.API_URL1
     useEffect(() => {
-        axios.get(`${API_URL}/systems/${id}`)
+        axios.get(`${apiUrl}/systems/${id}`)
             .then(res => setSystem(res.data))
             .catch(res => toast.error(res.message))
     }, [])
     if (!system) {
         return ""
     }
-
     const { name, galaxy, galaxyGroup, planets, stars } = system
 
     let planetsText = ""

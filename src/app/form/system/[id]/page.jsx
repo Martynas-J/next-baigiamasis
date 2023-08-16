@@ -11,10 +11,10 @@ const SystemFormPage = ({ params }) => {
     const router = useRouter()
     const id = params.id
     const [system, setSystem] = useState('');
-
+    const apiUrl = process.env.API_URL1
     useEffect(() => {
         if (id && id !== "new") {
-            axios.get(`${API_URL}/systems/${id}?_embed=photos`)
+            axios.get(`${apiUrl}/systems/${id}`)
                 .then(res => {
                     const { name, galaxy, galaxyGroup, stars, planets } = res.data
                     const newData = { name, galaxy, galaxyGroup, stars, planets }
@@ -36,9 +36,9 @@ const SystemFormPage = ({ params }) => {
         let { name, galaxy, galaxyGroup, stars, planets } = data
         stars = stars ? stars : ""
         planets = planets ? planets : ""
-        const newSystem = { name, galaxy, galaxyGroup, stars, planets }
+        const newSystem = { name, galaxy, galaxyGroup, stars, planets  }    
         if (system) {
-            axios.patch(`${API_URL}/systems/${id}`, newSystem)
+            axios.patch(`${apiUrl}/systems/${id}`, newSystem)
                 .then(() => {
                     toast.success("System was Edited");
                     setSystem("");
@@ -46,7 +46,7 @@ const SystemFormPage = ({ params }) => {
                 })
                 .catch((res) => toast.error(res.messages));
         } else {
-            axios.post(`${API_URL}/systems`, newSystem)
+            axios.post(`${apiUrl}/systems`, newSystem)
                 .then(() => {
                     toast.success('System was added');
                 })

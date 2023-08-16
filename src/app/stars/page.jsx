@@ -10,9 +10,9 @@ import styles from "./stars.module.scss"
 
 const StarsPage = () => {
   const [stars, setStars] = useState('');
-
+  const apiUrl = process.env.API_URL1
   useEffect(() => {
-    axios.get(`${API_URL}/stars?_expand=system&_embed=photos`)
+    axios.get(`${apiUrl}/stars?_expand=system`)
       .then(res => setStars(res.data))
       .catch(res => toast.error(res.message))
   }, [])
@@ -20,12 +20,12 @@ const StarsPage = () => {
     return ""
   }
   const deleteHandler = (id) => {
-    axios.delete(`${API_URL}/stars/${id}?_embed=photos`)
+    axios.delete(`${apiUrl}/stars/${id}`)
       .then(() => {
         toast.info("Star was deleted!")
         setStars(prevState => {
           let newState = [...prevState]
-          return newState.filter(((star) => star.id !== id))
+          return newState.filter(((star) => star._id !== id))
         })
       })
       .catch(err => {
@@ -40,7 +40,7 @@ const StarsPage = () => {
         <div className={styles.starWrapper}>
           {
             stars.length > 0 ?
-              stars.map(star => <StarItem key={star.id} star={star} onDelete={deleteHandler} />) :
+              stars.map(star => <StarItem key={star._id} star={star} onDelete={deleteHandler} />) :
               <h2>No data</h2>
           }
         </div>

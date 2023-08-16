@@ -1,7 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { API_URL } from "@/Components/Config/Config";
 import { toast } from "react-toastify";
 import SystemItem from "@/Components/SystemItem/SystemItem";
 import Container from "@/Components/Container/Container";
@@ -10,9 +9,9 @@ import Link from "next/link";
 
 const SystemsPage = () => {
   const [systems, setSystems] = useState('');
-
+  const apiUrl = process.env.API_URL1
   useEffect(() => {
-    axios.get(`${API_URL}/systems`)
+    axios.get(`${apiUrl}/systems`)
       .then(res => setSystems(res.data))
       .catch(res => toast.error(res.message))
   }, [])
@@ -20,12 +19,12 @@ const SystemsPage = () => {
     return ""
   }
   const deleteHandler = (id) => {
-    axios.delete(`${API_URL}/systems/${id}?_embed=photos`)
+    axios.delete(`${apiUrl}/systems/${id}`)
       .then(() => {
         toast.info("System was deleted!")
         setSystems(prevState => {
           let newState = [...prevState]
-          return newState.filter(((system) => system.id !== id))
+          return newState.filter(((system) => system._id !== id))
         })
       })
       .catch(err => {
@@ -40,7 +39,7 @@ const SystemsPage = () => {
         <div className={styles.systemWrapper}>
           {
             systems.length > 0 ?
-              systems.map(system => <SystemItem key={system.id} system={system} onDelete={deleteHandler} />) :
+              systems.map(system => <SystemItem key={system._id} system={system} onDelete={deleteHandler} />) :
               <h2>No data</h2>
           }
         </div>

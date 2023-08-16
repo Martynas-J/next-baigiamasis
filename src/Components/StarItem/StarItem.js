@@ -4,16 +4,16 @@ import { STAR_IMG_URL } from "../Config/Config";
 import Image from "next/image";
 
 const StarItem = ({ star, onDelete}) => {
-    const { name, id, system, systemId, photos } = star
+    const { name, _id, systemId } = star
 
     return (
         <div className="card-wrapper">
             <Card>
-                <Link href={`/stars/${id}`}><h2>{name}</h2></Link>
-                <Image alt="planet" width={200} height={200} className="medium-img" src={photos[0] ? photos[0].thumbnailUrl : STAR_IMG_URL} />
-                <Link href={`/systems/${systemId}`}><span>({system.name} system)</span></Link>
+                <Link href={`/stars/${_id}`}><h2>{name}</h2></Link>
+                <Image alt="stars" width={200} height={200} className="medium-img" src={STAR_IMG_URL} />
+                <Link href={`/systems/${systemId._id}`}><span>({systemId.name} system)</span></Link>
             </Card>
-            <button className="deleteButton" onClick={() => onDelete(star.id)}> X</button>
+            <button className="deleteButton" onClick={() => onDelete(star._id)}> X</button>
         </div>
     )
 }

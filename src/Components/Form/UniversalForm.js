@@ -17,7 +17,7 @@ const UniversalForm = ({ inputs, onAddData, newData }) => {
             });
         }
     }, [newData]);
-    
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (!value || value[0] === ' ') {
@@ -50,17 +50,22 @@ const UniversalForm = ({ inputs, onAddData, newData }) => {
                             <label htmlFor={name} className={errors[name] ? "textErr" : ""}>
                                 {label}:
                             </label>
+
                             {type === "select" ? (
+
                                 <select
                                     name={name}
                                     id={name}
                                     onChange={handleChange}
-                                    value={formValues[name] || ""}
+                                    value={formValues[name] ? formValues[name]._id : ""}
+
+
                                     required={required}
                                     className={errors[name] ? "inputErr" : ""}
                                 >
                                     <option value="">Choose...</option>
                                     {options.map((option, optionIndex) => (
+
                                         <option key={optionIndex} value={option.id}>
                                             {option.name}
                                         </option>
