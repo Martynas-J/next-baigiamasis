@@ -46,7 +46,7 @@ const Register = () => {
           className={styles.input}
         />
         <input
-          type="text"
+          type="Email"
           placeholder="Email"
           required
           className={styles.input}

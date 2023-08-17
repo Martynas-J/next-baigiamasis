@@ -1,49 +1,20 @@
 "use client"
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
 import DiscovererItem from "@/Components/DiscovererItem/DiscovererItem"
 import Container from "@/Components/Container/Container";
 import styles from "./discoverers.module.scss"
 import Link from "next/link";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import Loading from "../loading";
+import DelData from "@/Components/DelData/DelData";
+import { useSWRConfig } from "swr";
+import GetData from "@/Components/GetData/GetData";
 
 const DiscoverersPage = () => {
 
-  const session = useSession()
-
-  const router = useRouter()
-  useEffect(() => {
-      if (session.status === "unauthenticated") {
-          router?.push("/dashboard/login");
-      }
-  }, [session.status, router]);
-
-  const apiUrl = process.env.API_URL1
-  const [discoverers, setDiscoverers] = useState('');
-
-  useEffect(() => {
-    axios.get(`${apiUrl}/discoverers`)
-      .then(res => setDiscoverers(res.data))
-      .catch(res => toast.error(res.message))
-  }, [])
-
-  if (!discoverers) {
-    return ""
-  }
-  const deleteHandler = (id) => {
-    axios.delete(`${apiUrl}/discoverers/${id}`)
-      .then(() => {
-        toast.info("Discoverer was deleted!")
-        setDiscoverers(prevState => {
-          let newState = [...prevState]
-          return newState.filter(((discoverer) => discoverer._id !== id))
-        })
-      })
-      .catch(err => {
-        toast.error(err.message);
-      });
+  const discoverers = GetData("discoverers")
+  const { data, mutate } = useSWRConfig(`/api/discoverers`)
+  const deleteHandler = async (id) => {
+    await DelData(id, "discoverers")
+    mutate()
   }
   return (
     <Container>
@@ -52,10 +23,17 @@ const DiscoverersPage = () => {
         <Link href="/form/discoverer/new" className="create-link">Add New Discoverer</Link>
         <div className={styles.discovererWrapper}>
           {
-            discoverers.length > 0 ?
-              discoverers.map(discoverer =>
-                <DiscovererItem key={discoverer._id} discoverer={discoverer} onDelete={deleteHandler} />) :
-              <h2>No data</h2>
+            discoverers ? (
+              discoverers.length > 0 ? (
+                discoverers.map(discoverer => (
+                  <DiscovererItem key={discoverer._id} discoverer={discoverer} onDelete={deleteHandler} />
+                ))
+              ) : (
+                <h2>No data</h2>
+              )
+            ) : (
+              <Loading />
+            )
           }
         </div>
       </div>
