@@ -1,14 +1,23 @@
-import { notFound } from "next/navigation";
+"use client"
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react'
+import useSWR from 'swr';
 
-export default async function getData(id) {
-    const apiUrl = process.env.API_URL;
-    const res = await fetch(`${apiUrl}/api/posts/${id}`, {
-        cache: "no-store",
-    });
+const GetData = (page) => {
+    const session = useSession()
+    const router = useRouter()
+    const apiUrl = process.env.API_URL1
+    const fetcher = (...args) => fetch(...args).then(res => res.json())
+    const { data, mutate, error, isLoading } = useSWR(`/api/${page}`, fetcher)
 
-    if (!res.ok) {
-        return notFound()
-    }
+    useEffect(() => {
+        if (session.status === "unauthenticated") {
+            router?.push("/dashboard/login");
+        }
+    }, [session.status, router]);
 
-    return res.json();
+    return data
 }
+
+export default GetData
