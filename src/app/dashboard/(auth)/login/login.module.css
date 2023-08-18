@@ -72,3 +72,10 @@
 .google:hover {
   background-color: rgba(228, 97, 50, 0.803);
 }
+.facebook {
+  background-color: rgba(0, 32, 214, 0.72);
+}
+
+.facebook:hover {
+  background-color: rgba(2, 20, 126, 0.72);
+}

@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
 import User from "@/models/User";
 import connect from "@/utils/db";
@@ -34,14 +35,19 @@ const handler = NextAuth({
             throw new Error("User not found!");
           }
         } catch (err) {
-          throw new Error(err); 
+          throw new Error(err);
         }
       },
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,  
+      clientSecret: process.env.GOOGLE_SECRET,
     }),
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID, 
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET
+    }),
+
   ],
   pages: {
     error: "/dashboard/login",

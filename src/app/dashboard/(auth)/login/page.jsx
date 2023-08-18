@@ -63,6 +63,14 @@ const Login = () => {
         >
           Login with Google
         </button>
+                <button
+          onClick={() => {
+            signIn("facebook");
+          }}
+          className={styles.button + " " + styles.facebook}
+        >
+          Login with Facebook
+        </button>
         <span className={styles.or}>- OR -</span>
         <Link className={styles.link} href="/dashboard/register">
           Create new account
