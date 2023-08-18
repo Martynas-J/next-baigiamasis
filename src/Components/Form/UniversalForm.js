@@ -50,47 +50,45 @@ const UniversalForm = ({ inputs, onAddData, newData }) => {
                             <label htmlFor={name} className={errors[name] ? "textErr" : ""}>
                                 {label}:
                             </label>
-
                             {type === "select" ? (
-
-                                <select
+                                < select
                                     name={name}
-                                    id={name}
-                                    onChange={handleChange}
-                                    value={formValues[name] ? formValues[name]._id : ""}
+                            id={name}
+                            onChange={handleChange}
+                            value={formValues[name] ? formValues[name] : ""}
 
 
-                                    required={required}
-                                    className={errors[name] ? "inputErr" : ""}
+                            required={required}
+                            className={errors[name] ? "inputErr" : ""}
                                 >
-                                    <option value="">Choose...</option>
-                                    {options.map((option, optionIndex) => (
+                            <option value="">Choose...</option>
+                            {options.map((option, optionIndex) => (
 
-                                        <option key={optionIndex} value={option.id}>
-                                            {option.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            ) : (
-                                <input
-                                    type={type}
-                                    name={name}
-                                    id={name}
-                                    onChange={handleChange}
-                                    value={formValues[name] || ""}
-                                    required={required}
-                                    className={errors[name] ? "inputErr" : ""}
-                                />
+                                <option key={optionIndex} value={option.id}>
+                                    {option.name}
+                                </option>
+                            ))}
+                        </select>
+                    ) : (
+                <input
+                    type={type}
+                    name={name}
+                    id={name}
+                    onChange={handleChange}
+                    value={formValues[name] || ""}
+                    required={required}
+                    className={errors[name] ? "inputErr" : ""}
+                />
                             )}
-                            {errors[name] && (
-                                <div className="textErr">{errors[name]}</div>
-                            )}
-                        </div>
-                    );
-                })}
-                <button type="submit">{buttonText}</button>
-            </form>
+                {errors[name] && (
+                    <div className="textErr">{errors[name]}</div>
+                )}
         </div>
+    );
+})}
+<button type="submit">{buttonText}</button>
+            </form >
+        </div >
     );
 };
 export default UniversalForm

@@ -3,8 +3,8 @@ import Card from "../Card/Card";
 import { STAR_IMG_URL } from "../Config/Config";
 import Image from "next/image";
 
-const StarItem = ({ star, onDelete}) => {
-    const { name, _id, systemId } = star
+const StarItem = ({ data, onDelete}) => {
+    const { name, _id, systemId } = data
 
     return (
         <div className="card-wrapper">
@@ -13,7 +13,7 @@ const StarItem = ({ star, onDelete}) => {
                 <Image alt="stars" width={200} height={200} className="medium-img" src={STAR_IMG_URL} />
                 <Link href={`/systems/${systemId._id}`}><span>({systemId.name} system)</span></Link>
             </Card>
-            <button className="deleteButton" onClick={() => onDelete(star._id)}> X</button>
+            <button className="deleteButton" onClick={() => onDelete(_id)}> X</button>
         </div>
     )
 }

@@ -35,7 +35,7 @@ const SystemFormPage = ({ params }) => {
         let { name, galaxy, galaxyGroup, stars, planets } = data
         stars = stars ? stars : ""
         planets = planets ? planets : ""
-        const newSystem = { name, galaxy, galaxyGroup, stars, planets  }    
+        const newSystem = { name, galaxy, galaxyGroup, stars, planets }
         if (system) {
             axios.patch(`${apiUrl}/systems/${id}`, newSystem)
                 .then(() => {
@@ -48,6 +48,7 @@ const SystemFormPage = ({ params }) => {
             axios.post(`${apiUrl}/systems`, newSystem)
                 .then(() => {
                     toast.success('System was added');
+                    router?.push("/systems")
                 })
                 .catch((error) => {
                     toast.error(error.message);

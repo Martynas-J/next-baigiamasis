@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Card from "../Card/Card";
 
-const SystemItem = ({ system, onDelete }) => {
-    const { name, _id, planets, stars } = system
+const SystemItem = ({ data, onDelete }) => {
+    const { name, _id, planets, stars } = data
 
     let planetsElement = ""
     let starsElement = ""
@@ -28,7 +28,7 @@ const SystemItem = ({ system, onDelete }) => {
                 <Link href="/planets"><span>{planetsElement}</span></Link>
                 <Link href="/stars"><span>{starsElement}</span></Link>
             </Card>
-            <button className="deleteButton" onClick={() => onDelete(system._id)}> X</button>
+            <button className="deleteButton" onClick={() => onDelete(_id)}> X</button>
         </div>
     )
 }

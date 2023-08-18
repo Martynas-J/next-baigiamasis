@@ -1,6 +1,6 @@
-"use client"
+"use client" 
 import UniversalForm from "@/Components/Form/UniversalForm"
-import { API_URL, PLANET_IMG_URL } from "@/Components/Config/Config";
+import { PLANET_IMG_URL } from "@/Components/Config/Config";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -39,7 +39,6 @@ const PlanetFormPage = ({params}) => {
             url: PLANET_IMG_URL,
             thumbnailUrl: PLANET_IMG_URL,
             id,
-            // photoId: photos.length > 0 ? photos[0].id : '',
           }
           return setPlanet(newData)
         })
@@ -75,15 +74,6 @@ const PlanetFormPage = ({params}) => {
     if (planet) {
       axios
         .patch(`${apiUrl}/planets/${id}`, newPlanet)
-        // .then((response) => {
-        //   const planetId = response.data.id;
-        //   const photoData = { name, url, thumbnailUrl, planetId, category: "planets" };
-        //   if (photoId) {
-        //     return axios.patch(`${apiUrl}/photos/${photoId}`, photoData)
-        //   } else {
-        //     return axios.post(`${apiUrl}/photos`, photoData);
-        //   }
-        // })
         .then(() => {
           toast.success("Planet was Edited");
           setPlanet("");
@@ -92,11 +82,6 @@ const PlanetFormPage = ({params}) => {
         .catch((res) => toast.error(res.messages));
     } else {
       axios.post(`${apiUrl}/planets`, newPlanet)
-        // .then((response) => {
-        //   const planetId = response.data.id;
-        //   const photoData = { name, url, thumbnailUrl, planetId, category: "planets" };
-        //   return axios.post(`${apiUrl}/photos`, photoData);
-        // })
         .then(() => {
           toast.success('Planet was added');
           navigate?.push("/planets")

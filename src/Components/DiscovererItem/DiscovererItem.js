@@ -2,9 +2,9 @@ import Image from "next/image";
 import Card from "../Card/Card";
 import { HUMAN_IMG_URL } from "../Config/Config";
 
-const DiscovererItem = ({ discoverer, onDelete }) => {
+const DiscovererItem = ({ data, onDelete }) => {
 
-    const { name, occupation, _id, photos } = discoverer
+    const { name, occupation, _id, photos } = data
 
     return (
         <div className="card-wrapper">
@@ -13,7 +13,7 @@ const DiscovererItem = ({ discoverer, onDelete }) => {
                 <h2 > {name}</h2>
                 <span>{occupation}</span>
             </Card >
-            <button className="deleteButton" onClick={() => onDelete(discoverer._id)}> X</button>
+            <button className="deleteButton" onClick={() => onDelete(_id)}> X</button> 
         </div>
     )
 }

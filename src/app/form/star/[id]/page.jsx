@@ -73,6 +73,7 @@ const StarFormPage = ({params}) => {
             axios.post(`${apiUrl}/stars`, newStar)
                 .then(() => {
                     toast.success('Star was added');
+                    navigate?.push("/stars")
                 })
                 .catch((error) => {
                     toast.error(error.message);

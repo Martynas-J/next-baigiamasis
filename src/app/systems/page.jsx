@@ -5,16 +5,16 @@ import styles from "./system.module.scss"
 import Link from "next/link";
 
 import GetData from "@/Components/GetData/GetData";
-import Loading from "../loading";
 import useSWR from "swr";
 import DelData from "@/Components/DelData/DelData";
+import ListContainer from "@/Components/ListContainer/ListContainer";
 
 const SystemsPage = () => {
   const systems = GetData("systems")
 
   const { data, mutate } = useSWR(`/api/systems`)
   const deleteHandler = async (id) => {
-    await DelData(id, "systems")
+    await DelData(id, "systems") 
     mutate()
   }
 
@@ -24,19 +24,7 @@ const SystemsPage = () => {
         <h1 className="page-title">Systems</h1>
         <Link href="/form/system/new" className="create-link">Add New System</Link>
         <div className={styles.systemWrapper}>
-          {
-            systems ? (
-              systems.length > 0 ? (
-                systems.map(system => (
-                  <SystemItem key={system._id} system={system} onDelete={deleteHandler} />
-                ))
-              ) : (
-                <h2>No data</h2>
-              )
-            ) : (
-              <Loading />
-            )
-          }
+          <ListContainer ListItem={SystemItem} items={systems} onDelete={deleteHandler} />
         </div>
       </div>
     </Container>
